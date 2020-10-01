@@ -1,0 +1,81 @@
+#!/bin/sh
+# REQUIRES FONT-AWESOME PACKAGE TO WORK PROPERLY
+
+dte(){
+    dte="$(date +"%a, %b %d")"
+    printf "%s" " $dte"
+}
+
+hour(){
+    hour="$(date +%H:%M:%S)"
+    printf "%s" " $hour "
+}
+
+bat() {
+    stringContain() { [ -z "${2##*$1*}" ] && { [ -z "$1" ] || [ -n "$2" ] ;} ; }
+    battery="$(cat /sys/class/power_supply/BAT1/capacity)"
+    status="$(cat /sys/class/power_supply/BAT1/status)"
+
+    if stringContain "Charging" "$status"; then
+        printf "%s" " $battery%"
+    else
+        printf "%s" " $battery%"
+    fi
+
+}
+
+sound() {
+    sContain() { [ -z "${2##*$1*}" ] && { [ -z "$1" ] || [ -n "$2" ] ;} ; }
+    vol="$(amixer sget Master | grep 'Right:' | awk -F'[][]' '{ print $2 }')"
+    status="$(amixer sget Master | grep 'Left:' | awk -F'[][]' '{print $4 }')"
+
+    if sContain "off" "$status"; then
+        printf "%s" " $vol"
+    else
+        printf "%s" " $vol"
+    fi
+}
+
+micro() {
+    sContain() { [ -z "${2##*$1*}" ] && { [ -z "$1" ] || [ -n "$2" ] ;} ; }
+    status="$(amixer sget Capture | grep 'Left:' | awk -F'[][]' '{print $4 }')"
+
+    if sContain "off" "$status"; then
+        printf "%s" " off"
+    else
+        printf "%s" " on"
+    fi
+}
+
+mem() {
+    mem="$(free | awk '/Mem/{printf("%.2f%"), $3/$2*100}')"
+    printf "%s" " $mem"
+}
+
+cpu() {
+    cpu="$(mpstat 1 5 | awk 'END{printf("%.2f%"), 100-$NF}')"
+    printf "%s" " $cpu"
+}
+
+temp() {
+    tp=$(__=`sensors | grep Core` && echo \(`echo $__ | sed 's/.*+\(.*\).C\(\s\)\+(.*/\1/g' | tr "\n" "+" | head -c-1`\)\/`echo $__ | wc -l` | bc && unset __)
+    printf "%s" " $tp°C"
+}
+
+wifi() {
+    wget -q --spider http://google.com
+    if [ $? -eq 0 ]; then
+        printf "%s" " on"
+    else
+        printf "%s" " off"
+        fi
+}
+
+status(){
+        echo " $(mem) | $(wifi) | $(micro) | $(sound) | $(bat) | $(dte) | $(hour)"
+}
+
+while true; do
+    xsetroot -name "$(status)"
+    sleep 3s
+done
