@@ -5,8 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "monospace:pixelsize=15:antialias=true:autohint=true";
-static int borderpx = 2;
+static char *font = "monospace:pixelsize=16:antialias=true:autohint=true";
+static int borderpx = 5;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -91,7 +91,7 @@ char *termname = "st-256color";
  *
  *	stty tabs
  */
-unsigned int tabspaces = 8;
+unsigned int tabspaces = 4;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
@@ -106,7 +106,7 @@ static const char *colorname[] = {
 	"white", // gray
 
 	/* 8 bright colors */
-	"#282c34", // black 
+	"#282c34", // black
 	"#dc6a73", // red
 	"#98c379", // green
 	"#e5c07b", // yellow
@@ -121,7 +121,6 @@ static const char *colorname[] = {
 	"#cccccc",
 	"#555555",
 };
-
 
 /*
  * Default colors (colorname index)
@@ -174,11 +173,22 @@ static uint forcemousemod = ShiftMask;
  */
 static MouseShortcut mshortcuts[] = {
 	/* mask                 button   function        argument       release */
-	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
-	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
-	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
-	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
-	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
+	//{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
+	//{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
+	//{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
+	//{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
+	//{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
+	{ XK_ANY_MOD,             Button4, kscrollup,      {.i = -1} },
+	{ XK_ANY_MOD,             Button5, kscrolldown,    {.i = -1} },
+};
+
+
+#define MODKEY Mod1Mask
+/* mouse keys */
+MouseKey mkeys[] = {
+	/* button               mask            function        argument */
+	{ Button4,              MODKEY,      kscrollup,      {.i =  1} },
+	{ Button5,              MODKEY,      kscrolldown,    {.i =  1} },
 };
 
 /* Internal keyboard shortcuts. */
@@ -199,6 +209,8 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
+	{ MODKEY,		XK_a,		kscrollup,	{.i = -1} },
+	{ MODKEY,		XK_z,		kscrolldown,	{.i = -1} },
 };
 
 /*
@@ -459,7 +471,7 @@ static Key key[] = {
  * If no match is found, regular selection is used.
  */
 static uint selmasks[] = {
-	[SEL_RECTANGULAR] = Mod1Mask,
+	[SEL_RECTANGULAR] = ControlMask,
 };
 
 /*
