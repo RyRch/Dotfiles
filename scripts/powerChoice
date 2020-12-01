@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# colors && font #
+col_gray1="#222222"
+col_gray2="#444444"
+col_gray3="#bbbbbb"
+col_gray4="#eeeeee"
+col_cyan="#484e5f"
+dmenufont="Hack:size=12"
+
+choices="poweroff\nreboot\nlogout\nsuspend"
+chosen=$(echo -e "$choices" | dmenu -p "PowerChoice" \
+-nb $col_gray1 -sb $col_cyan -fn $dmenufont)
+
+case "$chosen" in
+	poweroff) poweroff;;
+	reboot) reboot;;
+	logout) pkill dwm;;
+	suspend) systemctl suspend;;
+esac
+

@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# colors && font #
+col_gray1="#222222"
+col_gray2="#444444"
+col_gray3="#bbbbbb"
+col_gray4="#eeeeee"
+col_cyan="#484e5f"
+dmenufont="Hack:size=12"
+cmd="ffmpeg -s 1920x1080 -f x11grab -i "
+dir="~/Videos/"
+type=".mkv"
+
+audio() {
+        choice="Yes\nNo"
+        chosen=$(echo -e $choice | dmenu -p "Audio" \
+        -nb $col_gray1 -sb $col_cyan -fn $dmenufont)
+
+        case "$chosen" in
+                Yes) echo "-f alsa -i default";;
+                No);;
+        esac
+}
+
+output() {
+        echo $(dmenu -p "Enter output" \
+                -nb $col_gray1 -sb $col_cyan -fn $dmenufont)
+}
+
+monitor() {
+        choice="laptop\nmonitor"
+        chosen=$(echo -e $choice | dmenu -p "screen" \
+        -nb $col_gray1 -sb $col_cyan -fn $dmenufont)
+
+        case "$chosen" in
+                laptop) echo ":0.0 ";;
+                monitor) echo ":0.0+1920 ";;
+        esac
+}
+
+killall ffmpeg
+if [ $? -eq 1 ]; then
+        $cmd$(monitor)$(audio)$(output)$type
+fi
