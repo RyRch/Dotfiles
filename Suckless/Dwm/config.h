@@ -60,11 +60,12 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
+	{ "[]=",      tile },
+	{ "[S]",      monocle },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
 	{ "|M|",      centeredmaster },
 	{ ">M>",      centeredfloatingmaster },
+	{ NULL,	      NULL},
 };
 
 /* key definitions */
@@ -108,15 +109,16 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_f,      fullscreen,     {0} },
 	{ MODKEY,			XK_y,	   spawn,	   {.v = yfscmd } },
+	{ MODKEY,                       XK_s, 	   togglesticky,   {0} },
 	{ MODKEY,                       XK_z,      zoom,           {0} },
 	{ MODKEY,                       XK_l,      shiftview,      {.i = +1} },
 	{ MODKEY,			XK_r,	   spawn,	   {.v = reccmd} },
-	{ MODKEY,                       XK_h,      view,           {0} },
+	{ MODKEY,                       XK_h,      shiftview,      {.i = -1} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
 	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = quitcmd } },
 	{ MODKEY,                       XK_space,  togglefloating, {0} },
-	{ MODKEY, 			XK_m,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY, 			XK_m,      cyclelayout,      {.i = -1} },
+	{ MODKEY|ShiftMask,             XK_m,      cyclelayout,      {.i = +1} },
 	{ 0,                            XF86XK_AudioLowerVolume,   spawn,          
 		{.v = downvol } },
 	{ 0,                            XF86XK_AudioMute,          spawn,          
