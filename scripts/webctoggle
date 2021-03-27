@@ -1,0 +1,11 @@
+#!/bin/sh
+
+check=$(lsmod | grep uvcvideo)
+retvalue=$?
+$check
+
+if [ "$retvalue" -eq 1 ]; then
+    echo "$(echo '1234' | sudo modprobe uvcvideo)"
+else 
+    echo "$(echo '1234' | sudo modprobe -r uvcvideo)"
+fi

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+path="/home/rr/Documents/Notes/"
+files=$(cd $path && ls *.pdf | dmenu -p "Choose the pdf: ")
+
+if [ ! -z $files ]
+then
+    zathura $path$files
+fi
