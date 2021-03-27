@@ -138,13 +138,12 @@ xfont_create(Drw *drw, const char *fontname, FcPattern *fontpattern)
 	 * https://lists.suckless.org/dev/1701/30932.html
 	 * https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=916349
 	 * and lots more all over the internet.
-	 */
 	FcBool iscol;
 	if(FcPatternGetBool(xfont->pattern, FC_COLOR, 0, &iscol) == FcResultMatch && iscol) {
 		XftFontClose(drw->dpy, xfont);
 		return NULL;
 	}
-
+	*/
 	font = ecalloc(1, sizeof(Fnt));
 	font->xfont = xfont;
 	font->pattern = pattern;
@@ -245,6 +244,30 @@ drw_rect(Drw *drw, int x, int y, unsigned int w, unsigned int h, int filled, int
 		XFillRectangle(drw->dpy, drw->drawable, drw->gc, x, y, w, h);
 	else
 		XDrawRectangle(drw->dpy, drw->drawable, drw->gc, x, y, w - 1, h - 1);
+}
+
+void
+drw_arrow(Drw *drw, int x, int y, unsigned int w, unsigned int h, int direction, int slash)
+{
+        if (!drw)
+                return;
+
+        /* direction=1 draws right arrow */
+        x = direction ? x : x + w;
+        w = direction ? w : -w;
+        /* slash=1 draws slash instead of arrow */
+        unsigned int hh = slash ? (direction ? 0 : h) : h/2;
+
+        XPoint points[] = {
+                {x    , y      },
+                {x + w, y + hh },
+                {x    , y + h  },
+        };
+
+        XSetForeground(drw->dpy, drw->gc, drw->scheme[ColBg].pixel);
+        XFillRectangle(drw->dpy, drw->drawable, drw->gc, x, y, w, h);
+        XSetForeground(drw->dpy, drw->gc, drw->scheme[ColFg].pixel);
+        XFillPolygon(drw->dpy, drw->drawable, drw->gc, points, 3, Nonconvex, CoordModeOrigin);
 }
 
 int

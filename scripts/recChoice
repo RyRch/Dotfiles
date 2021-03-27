@@ -1,44 +1,47 @@
 #!/bin/sh
 
-# colors && font #
-col_gray1="#222222"
-col_gray2="#444444"
-col_gray3="#bbbbbb"
-col_gray4="#eeeeee"
-col_cyan="#484e5f"
-dmenufont="Hack:size=12"
-cmd="ffmpeg -s 1920x1080 -f x11grab -i "
-dir="~/Videos/"
-type=".mkv"
+resolution() {
+    choice="hd\nfhd\nqhd\nuhd"
+    chosen=$(echo -e $choice | dmenu -p "Resolution :")
+    case "$chosen" in
+        hd) echo -e "1280x720";;
+        fhd) echo -e "1920x1080";;
+        qhd) echo -e "2560x1440";;
+        uhd) echo -e "3840x2160";;
+    esac
+}
 
 audio() {
         choice="Yes\nNo"
-        chosen=$(echo -e $choice | dmenu -p "Audio" \
-        -nb $col_gray1 -sb $col_cyan -fn $dmenufont)
+        chosen=$(echo -e $choice | dmenu -p "Audio :")
 
         case "$chosen" in
-                Yes) echo "-f alsa -i default";;
-                No);;
+                Yes) echo -e "-f alsa -i default ";;
+                No) echo -e " ";;
         esac
 }
 
 output() {
-        echo $(dmenu -p "Enter output" \
-                -nb $col_gray1 -sb $col_cyan -fn $dmenufont)
+    echo $(dmenu -p "Enter output:")
 }
 
 monitor() {
         choice="laptop\nmonitor"
-        chosen=$(echo -e $choice | dmenu -p "screen" \
-        -nb $col_gray1 -sb $col_cyan -fn $dmenufont)
-
+        chosen=$(echo -e $choice | dmenu -p "Screen :")
         case "$chosen" in
-                laptop) echo ":0.0 ";;
-                monitor) echo ":0.0+1920 ";;
+                laptop) echo -e ":0.0 ";;
+                monitor) echo -e ":0.0+1920 ";;
         esac
 }
 
-killall ffmpeg
-if [ $? -eq 1 ]; then
-        $cmd$(monitor)$(audio)$(output)$type
-fi
+main() {
+    cmd="ffmpeg -video_size "
+    frame=" -framerate 60"
+    grap=" -f x11grab -i "
+    dir=" /home/rr/Medias/"
+    res="1920x1080"
+
+    $cmd$res$framerate$grap$(monitor)$(audio)$dir$(output)
+}
+
+$(main)

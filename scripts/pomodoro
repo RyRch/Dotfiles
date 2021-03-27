@@ -1,0 +1,20 @@
+#!/bin/sh
+
+img="~/Pictures/pomodoro.png"
+prog="notify-send -i"
+
+$prog $img "Good Luck !" && sleep 750
+$prog $img "Half Time !" && sleep 750
+$prog $img "Take a Break" && sleep 300
+
+$prog $img "Good Luck !" && sleep 750
+$prog $img "Half Time !" && sleep 750
+$prog $img "Take a Break" && sleep 300
+
+$prog $img "Good Luck !" && sleep 750
+$prog $img "Half Time !" && sleep 750
+$prog $img "Take a Break" && sleep 300
+
+$prog $img "Good Luck !" && sleep 750
+$prog $img "Half Time !" && sleep 750
+$prog $img "Your done, congrat !"

@@ -1,19 +1,10 @@
 #!/bin/sh
 
-# colors && font #
-col_gray1="#222222"
-col_gray2="#444444"
-col_gray3="#bbbbbb"
-col_gray4="#eeeeee"
-col_cyan="#484e5f"
-dmenufont="Hack:size=12"
 choice="VGA\nHDMI"
 
 position1() {
 	status="left\nright\nup\ndown\noff\nmiroir"
-	chosen=$(echo -e "$status" | dmenu -p "displayPosition" \
-	-nb $col_gray1 -sb $col_cyan -fn $dmenufont)
-
+    chosen=$(echo -e "$status" | dmenu -p "displayPosition")
 	case "$chosen" in
         	left) xrandr --output DP1 --left-of eDP1 --auto;;
         	right) xrandr --output DP1 --right-of eDP1 --auto;;
@@ -26,9 +17,7 @@ position1() {
 
 position2() {
         status="left\nright\nup\ndown\noff\nmiroir"
-        chosen=$(echo -e "$status" | dmenu -p "displayPosition" \
-        -nb $col_gray1 -sb $col_cyan -fn $dmenufont)
-
+        chosen=$(echo -e "$status" | dmenu -p "displayPosition")
         case "$chosen" in
                 left) xrandr --output HDMI1 --left-of eDP1 --auto;;
                 right) xrandr --output HDMI1 --right-of eDP1 --auto;;
@@ -39,9 +28,7 @@ position2() {
         esac
 }
 
-chosen=$(echo -e $choice | dmenu -p "displayChoice" \
--nb $col_gray1 -sb $col_cyan -fn $dmenufont)
-
+chosen=$(echo -e $choice | dmenu -p "displayChoice")
 case "$chosen" in
 	VGA) $(position1);;
 	HDMI) $(position2);;

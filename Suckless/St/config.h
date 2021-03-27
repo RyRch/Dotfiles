@@ -5,7 +5,9 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "HackNerdFont:pixelsize=16:antialias=true:autohint=true";
+static char *font = "FantasqueSansMonoNerdFont:pixelsize=18:antialias=true:autohint=true";
+static char *font2 = "AppleColorEmoji:pixelsize=16:antialias=true:autohint=true";
+
 static int borderpx = 5;
 
 /*
@@ -96,30 +98,32 @@ unsigned int tabspaces = 4;
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-        "#1a1a1a", // black
-	"#dc6a73", // red
-	"#98c379", // green
-	"#e5c07b", // yellow
-	"#4b5263", // blue
-	"#ad77c2", // magenta
-	"#abb2bf", // cyan
-	"white", // gray
+    "#282828", // black
+	"#cc241d", // red
+	"#98971a", // green
+	"#d79921", // yellow
+	"#458588", // blue
+	"#b16286", // magenta
+	"#689d6a", // cyan
+	"#a89984", // gray
 
 	/* 8 bright colors */
-	"#282c34", // black
-	"#dc6a73", // red
-	"#98c379", // green
-	"#e5c07b", // yellow
-	"#4b5263", // blue
-	"#ad77c2", // magenta
-	"#abb2bf", // cyan
-	"#abb2bf", // gray
+	"#928374", // black
+    "#fb4934", // red
+    "#b8bb26", // green
+    "#fabd2f", // yellow
+    "#83a598", // blue
+    "#d3869b", // magenta
+    "#8ec07c", // cyan
+    "#ebdbb2", // gray
+
 
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc",
-	"#555555",
+	"#cccccc",      //256
+	"#555555",      //257
+    "#d65d0e"       //258
 };
 
 /*
@@ -141,11 +145,24 @@ static unsigned int defaultrcs = 257;
 static unsigned int cursorshape = 2;
 
 /*
+ * Whether to use pixel geometry or cell geometry
+ */
+
+//static Geometry geometry = CellGeometry;
+
+/*
  * Default columns and rows numbers
  */
 
-static unsigned int cols = 80;
-static unsigned int rows = 24;
+static unsigned int cols = 100;
+static unsigned int rows = 55;
+
+/*
+ * Default width and height (including borders!)
+ */
+
+static unsigned int width = 564;
+static unsigned int height = 364;
 
 /*
  * Default colour and shape of the mouse cursor
@@ -178,8 +195,8 @@ static MouseShortcut mshortcuts[] = {
 	//{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
 	//{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
 	//{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
-	{ XK_ANY_MOD,             Button4, kscrollup,      {.i = -1} },
-	{ XK_ANY_MOD,             Button5, kscrolldown,    {.i = -1} },
+	//{ XK_ANY_MOD,             Button4, kscrollup,      {.i = -1} },
+	//{ XK_ANY_MOD,             Button5, kscrolldown,    {.i = -1} },
 };
 
 
@@ -187,8 +204,8 @@ static MouseShortcut mshortcuts[] = {
 /* mouse keys */
 MouseKey mkeys[] = {
 	/* button               mask            function        argument */
-	{ Button4,              MODKEY,      kscrollup,      {.i =  1} },
-	{ Button5,              MODKEY,      kscrolldown,    {.i =  1} },
+	//{ Button4,              MODKEY,      kscrollup,      {.i =  1} },
+	//{ Button5,              MODKEY,      kscrolldown,    {.i =  1} },
 };
 
 /* Internal keyboard shortcuts. */
@@ -201,16 +218,17 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
-	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
+	{ TERMMOD,              XK_K,           zoom,           {.f = +1} },
+	{ TERMMOD,              XK_J,           zoom,           {.f = -1} },
+    { TERMMOD,              XK_Q,           zoom,           {.f =  0} },
 	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ MODKEY,		XK_a,		kscrollup,	{.i = -1} },
-	{ MODKEY,		XK_z,		kscrolldown,	{.i = -1} },
+	{ MODKEY,		        XK_u,   		kscrollup,	    {.i = -1} },
+	{ MODKEY,		        XK_d,	    	kscrolldown,	{.i = -1} },
 };
 
 /*
