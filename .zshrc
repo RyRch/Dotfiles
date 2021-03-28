@@ -1,6 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# for nvim terminal
+ZSH_DISABLE_COMPFIZ="true"
+
 # Path to your oh-my-zsh installation.
 export ZSH="/home/rr/.oh-my-zsh"
 
@@ -9,6 +12,7 @@ export ZSH="/home/rr/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="agnoster"
+
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -98,38 +102,52 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# vim mode
+# bindkey -v
+
 LC_ALL="en_US.UTF-8"
 
-alias cdd="cd ~/Documents"
 alias ..="cd .."
 alias ...="cd ../../"
-alias cds="cd ~/Programs/Suckless"
-alias nv="sudo -E nvim"
-alias cdp="cd ~/Programs"
+alias cdd="cd ~/Documents"
+alias cdm="cd ~/Medias/"
+alias cdp="cd ~/Pictures/"
+alias cds="cd ~/Documents/Projects/Dotfiles/Suckless/"
+alias cde="cd ~/Documents/Epitech/"
+alias nv="nvim"
 alias ls="lsd --group-dirs first"
 alias tree="lsd --tree"
 alias us="setxkbmap us"
 alias fr="setxkbmap fr"
+alias nez="ruby ~/Programs/CliProg/NormEZ/NormEZ.rb"
+alias sec="cd .Others"
+alias cdn="cd ~/Documents/Notes/"
+alias ydl="youtube-dl"
+alias pvp="protonvpn"
+alias cdo="cd ~/Downloads/"
+alias tb="taskbook"
+alias nv="sudo -E nvim"
+alias cda="cd ~/Medias/Audios/Songs"
 
 if [ "$TERM" = "linux" ]; then
-    startx
+    alias startx="startx >/dev/null 2>&1"
     alias ls="lsd --icon never"
     alias tree="tree"
-    echo -en "\e]P01a1a1a" #black
-    echo -en "\e]P82B2B2B" #darkgrey
-    echo -en "\e]P1D75F5F" #darkred
-    echo -en "\e]P9dc6a73" #red
-    echo -en "\e]P287AF5F" #darkgreen
-    echo -en "\e]PA98c379" #green
+    echo -en "\e]P0282828" #black
+    echo -en "\e]P8282828" #darkgrey
+    echo -en "\e]P1cc241d" #darkred
+    echo -en "\e]P9cc241d" #red
+    echo -en "\e]P298971a" #darkgreen
+    echo -en "\e]PA98971a" #green
     echo -en "\e]P3D7AF87" #brown
-    echo -en "\e]PBe5c07b" #yellow
-    echo -en "\e]P48787AF" #darkblue
-    echo -en "\e]PC4b5263" #blue
-    echo -en "\e]P5BD53A5" #darkmagenta
-    echo -en "\e]PDad77c2" #magenta
-    echo -en "\e]P65FAFAF" #darkcyan
-    echo -en "\e]PEadd2bf" #cyan
-    echo -en "\e]P7E5E5E5" #lightgrey
-    echo -en "\e]PFFFFFFF" #white
+    echo -en "\e]PBd79921" #yellow
+    echo -en "\e]P4548588" #darkblue
+    echo -en "\e]PC458588" #blue
+    echo -en "\e]P5458588" #darkmagenta
+    echo -en "\e]PDb16286" #magenta
+    echo -en "\e]P6689d6a" #darkcyan
+    echo -en "\e]PE689d6a" #cyan
+    echo -en "\e]P7a89984" #lightgrey
+    echo -en "\e]PFa89984" #white
     clear #for background artifacting
 fi

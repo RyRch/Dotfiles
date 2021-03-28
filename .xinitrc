@@ -7,10 +7,10 @@ setxkbmap fr
 undervolt_script
 hdd_script
 dunst &
-dwmbar &
-compton &
+btpd &
+slstatus &
 redshift &
-feh --bg-scale /home/rr/Pictures/wallpaper.jpg &
+feh --bg-scale ~/Pictures/simple.png &
 exec dwm
 pulseaudio --start
 amixer set Capture nocap

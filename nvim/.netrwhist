@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =9
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/home/rr/.config/nvim/autoload'
+let g:netrw_dirhist_0='/home/rr/.config/nvim'
 let g:netrw_dirhist_9='/home/rr/Documents/Epitech/Pool/CPPool/Week1/B-CPP-300-PAR-3-1-CPPD01-reda.rouich/ex00'
 let g:netrw_dirhist_8='/home/rr/Documents/Notes/Epitech'
 let g:netrw_dirhist_7='/home/rr/Programs/Suckless/Dwm'
@@ -8,5 +10,3 @@ let g:netrw_dirhist_5='/home/rr/Documents/Epitech/Projects/B-OOP-400-PAR-4-1-arc
 let g:netrw_dirhist_4='/home/rr/Documents/Epitech/Projects/B-OOP-400-PAR-4-1-arcade-anne.mboke/resources'
 let g:netrw_dirhist_3='/home/rr/Documents/Projects/webctoggle'
 let g:netrw_dirhist_2='/home/rr/Documents/Epitech/Files/malloc2/src'
-let g:netrw_dirhist_1='/home/rr/Documents/Epitech/Files/malloc2'
-let g:netrw_dirhist_0='/home/rr/Documents/Epitech/Files/malloc1'

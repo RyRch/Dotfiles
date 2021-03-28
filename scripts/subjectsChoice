@@ -1,9 +1,0 @@
-#!/bin/sh
-
-path="/home/rr/Documents/Epitech/Subjects/"
-chosen=$(cd $path && ls | dmenu -p "Choose the subject: ")
-
-if [ ! -z $chosen ] 
-then
-    zathura $path$chosen
-fi

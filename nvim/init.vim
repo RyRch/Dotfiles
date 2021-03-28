@@ -1,5 +1,3 @@
-source /home/rr/.config/nvim/vim-plug/plugins.vim
-
 colorscheme gruvbox
 syntax on
 
@@ -36,9 +34,18 @@ set fillchars=vert:\│,eob:\
 set listchars=eol:¬,tab:~.,trail:.,extends:>,precedes:<,space:.
 set list
 set clipboard=unnamedplus
-"let g:ycm_min_num_of_chars_for_completion = 1
 
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
+
+call plug#begin('/home/rr/.config/nvim/autoload/plugged')
+    Plug 'gabrielelana/vim-markdown'
+    Plug 'ap/vim-css-color'
+    Plug 'morhetz/gruvbox'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'junegunn/goyo.vim'
+    Plug 'x4m3/vim-epitech'
+call plug#end()
+
