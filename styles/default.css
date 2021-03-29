@@ -1,0 +1,29 @@
+/**,div,pre,textarea,body,input,td,tr,p {*/
+body {
+    background-color: #282828 !important;
+    background-image: none !important;
+    color: #ebdbb2 !important;
+ }
+
+p {
+    font-family: "FantasqueSansMono Nerd Font Mono";
+    font-size: 18px;
+    color: #a89984 !important;
+}
+
+a {
+    /*font-family: "FantasqueSansMono Nerd Font Mono";
+    font-size: 18px;*/
+    color: #ebdbb2 !important;
+}
+
+#header, .header, #footer, .footer {
+     background-color: #282828 !important;
+     clear: both;
+     color: #a89984 !important;
+ }
+
+ ::selection {
+    background: #d65d0e;
+    color: #ebdbb2;
+ }
